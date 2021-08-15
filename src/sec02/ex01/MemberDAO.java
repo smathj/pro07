@@ -2,7 +2,6 @@ package sec02.ex01;
 
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -28,7 +27,14 @@ public class MemberDAO {
 		try {
 			Context ctx = new InitialContext();
 			Context envContext = (Context) ctx.lookup("java:/comp/env");
+			// JNDI에 접근하기 위해 기본 경로 저장
+			
+			
 			dataFactory = (DataSource) envContext.lookup("jdbc/oracle");
+			// 톰캣 context.xml에 설정한 name값인 jdbc/oracle을 이용해서
+			// 톰캣이 미리 연결한 Datasource를 받아온다!
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -38,7 +44,7 @@ public class MemberDAO {
 		List list = new ArrayList();
 		try {
 			//connDB();
-			con=dataFactory.getConnection();
+			con=dataFactory.getConnection(); // DataSource를 이용해 DB에 연결한다.
 			String query = "select * from t_member ";
 			System.out.println("prepareStatememt: " + query);
 			pstmt = con.prepareStatement(query);
@@ -70,9 +76,9 @@ public class MemberDAO {
 	private void connDB() {
 		try {
 			Class.forName(driver);
-			System.out.println("Oracle 드라이버 로딩 성공");
+			System.out.println("Oracle �뱶�씪�씠踰� 濡쒕뵫 �꽦怨�");
 			con = DriverManager.getConnection(url, user, pwd);
-			System.out.println("Connection 생성 성공");
+			System.out.println("Connection �깮�꽦 �꽦怨�");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

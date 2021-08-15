@@ -10,7 +10,7 @@ public class MemberVO {
 	private Date joinDate;
 	
 	public MemberVO() {
-		System.out.println("MemberVO »ý¼ºÀÚ È£Ãâ");
+		System.out.println("MemberVO 생성자 호출");
 	}
 
 	public String getId() {
